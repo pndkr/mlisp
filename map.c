@@ -20,6 +20,10 @@ static unsigned hash(Value *v)
 
 int cmp(Value *a, Value *b)
 {
+	if (a->type == TNumber && b->type == TNumber) {
+		double c = a->number - b->number;
+		return c < 0? -1 : c > 0? 1 : 0;
+	}
 	if ((a->type != TString && a->type != TSymbol) &&
 	    (b->type != TSymbol && b->type != TSymbol))
 		return 0;
