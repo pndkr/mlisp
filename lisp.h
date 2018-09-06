@@ -76,3 +76,15 @@ void setstr(Value *map, char *key, Value v);
 Value eval_dump(Value *ctx, Value *args);
 Value eval_info(Value *ctx, Value *args);
 void dump(Value*);
+
+/* expr.c */
+Value eval_if(Value *ctx, Value *args);
+Value eval_add(Value *ctx, Value *args);
+Value eval_sub(Value *ctx, Value *args);
+Value eval_mul(Value *ctx, Value *args);
+Value eval_div(Value *ctx, Value *args);
+Value eval_gt(Value *ctx, Value *args);
+Value eval_lt(Value *ctx, Value *args);
+Value eval_ge(Value *ctx, Value *args);
+Value eval_le(Value *ctx, Value *args);
+Value eval_eq(Value *ctx, Value *args);

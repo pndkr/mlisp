@@ -153,7 +153,9 @@ Value run_lambda(Value *ctx, Value *lbd, Value *args)
 int init(Value *ctx)
 {
 	set(ctx, make(TList));
+
 	/* base system */
+	setstr(ctx, "eval", cfunc(eval_eval));
 	setstr(ctx, "read", cfunc(eval_read));
 	setstr(ctx, "write", cfunc(eval_write));
 	setstr(ctx, "set", cfunc(eval_set));
@@ -167,6 +169,18 @@ int init(Value *ctx)
 	/* mapping system */
 	setstr(ctx, "map-new", cfunc(eval_map_new));
 	setstr(ctx, "map-field", cfunc(eval_map_field));
+
+	/* expression system */
+	setstr(ctx, "if", cfunc(eval_if));
+	setstr(ctx, "add", cfunc(eval_add));
+	setstr(ctx, "sub", cfunc(eval_sub));
+	setstr(ctx, "mul", cfunc(eval_mul));
+	setstr(ctx, "div", cfunc(eval_div));
+	setstr(ctx, "gt", cfunc(eval_gt));
+	setstr(ctx, "lt", cfunc(eval_lt));
+	setstr(ctx, "ge", cfunc(eval_ge));
+	setstr(ctx, "le", cfunc(eval_le));
+	setstr(ctx, "eq", cfunc(eval_eq));
 }
 
 int main(int argc)
