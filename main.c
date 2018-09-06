@@ -155,7 +155,7 @@ int init(Value *ctx)
 	set(ctx, make(TList));
 
 	/* base system */
-	setstr(ctx, "eval", cfunc(eval_eval));
+	setstr(ctx, "eval", cfunc(eval));
 	setstr(ctx, "read", cfunc(eval_read));
 	setstr(ctx, "write", cfunc(eval_write));
 	setstr(ctx, "set", cfunc(eval_set));
@@ -171,6 +171,7 @@ int init(Value *ctx)
 	setstr(ctx, "map-field", cfunc(eval_map_field));
 
 	/* expression system */
+	setstr(ctx, "while", cfunc(eval_while));
 	setstr(ctx, "if", cfunc(eval_if));
 	setstr(ctx, "add", cfunc(eval_add));
 	setstr(ctx, "sub", cfunc(eval_sub));

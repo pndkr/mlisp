@@ -19,7 +19,7 @@ enum Type {
 	TSymbol = 1 << 5,
 	TString = 1 << 6,
 	/* the 7 should be the last type, there's no place for more (8-bit)  */
-	/* i would like to remember the last type is reserved macros         */
+	/* i would like to remember the last type is reserved for macros     */
 
 	/* however, arbitrary C data value would be as nice,                 */
 	/* and so would be error values                                      */
@@ -78,6 +78,7 @@ Value eval_info(Value *ctx, Value *args);
 void dump(Value*);
 
 /* expr.c */
+Value eval_while(Value *ctx, Value *args);
 Value eval_if(Value *ctx, Value *args);
 Value eval_add(Value *ctx, Value *args);
 Value eval_sub(Value *ctx, Value *args);

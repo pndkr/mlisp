@@ -59,10 +59,27 @@ Value eval_if(Value *ctx, Value *args)
 	Value r = nil;
 
 	set(&r, eval(ctx, &list(args, 1)));
-	if(r.type != TNil)
+	if (r.type != TNil)
 		set(&r, eval(ctx, &list(args, 2)));
 	else
 		set(&r, eval(ctx, &list(args, 3)));
+	unmark(&r);
+	return r;
+}
+
+Value eval_while(Value *ctx, Value *args)
+{
+	Value r = nil, c = nil;
+	int i;
+
+	for (;;) {
+		set(&c, eval(ctx, &list(args, 1)));
+		if (c.type == TNil)
+			break;
+		for (i = 2; i < args->list->len; i++)
+			set(&r, eval(ctx, &list(args, i)));
+	}
+	delete(&c);
 	unmark(&r);
 	return r;
 }
