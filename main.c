@@ -167,6 +167,7 @@ int init(Value *ctx)
 	setstr(ctx, "dump", cfunc(eval_dump));
 
 	/* mapping system */
+	setstr(ctx, "map", cfunc(eval_map_literal));
 	setstr(ctx, "map-new", cfunc(eval_map_new));
 	setstr(ctx, "map-field", cfunc(eval_map_field));
 

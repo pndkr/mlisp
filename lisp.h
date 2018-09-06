@@ -68,6 +68,7 @@ void set(Value *d, Value s);
 /* map.c */
 Value eval_map_new(Value *ctx, Value *args);
 Value eval_map_field(Value *ctx, Value *args);
+Value eval_map_literal(Value *ctx, Value *args);
 Value *mapget(Value *map, Value *key);
 int cmp(Value *a, Value *b);
 void setstr(Value *map, char *key, Value v);

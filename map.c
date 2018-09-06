@@ -74,3 +74,15 @@ Value eval_map_field(Value *ctx, Value *args)
 	delete(&k);
 	return v;
 }
+
+Value eval_map_literal(Value *ctx, Value *args)
+{
+	Value m = nil;
+	int i;
+
+	set(&m, make(TList));
+	for (i = 1; i < args->list->len; i += 2)
+		set(mapget(&m, &list(args, i)), list(args, i+1));
+	unmark(&m);
+	return m;
+}
