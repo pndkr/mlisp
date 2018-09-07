@@ -84,6 +84,17 @@ Value eval_while(Value *ctx, Value *args)
 	return r;
 }
 
+Value eval_len(Value *ctx, Value *args)
+{
+	Value v = nil, l = make(TNumber);
+
+	set(&v, eval(ctx, &list(args, 1)));
+	if (isobject(v))
+		l.number = v.list->len;
+	delete(&v);
+	return l;
+}
+
 MATH_EXPR(add, +)
 MATH_EXPR(sub, -)
 MATH_EXPR(mul, *)

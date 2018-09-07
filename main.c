@@ -173,6 +173,7 @@ int init(Value *ctx)
 	setstr(ctx, "list-field", cfunc(eval_list_field));
 
 	/* expression system */
+	setstr(ctx, "len", cfunc(eval_len));
 	setstr(ctx, "while", cfunc(eval_while));
 	setstr(ctx, "if", cfunc(eval_if));
 	setstr(ctx, "add", cfunc(eval_add));
