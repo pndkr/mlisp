@@ -41,13 +41,13 @@
 Value prepargs(Value *ctx, Value *args)
 {
 	Value t = nil, v = make(TList);
-	int i;
+	int i, j;
 
-	for (i = 1; i < args->list->len; i++) {
+	for (i = 1, j = 0; i < args->list->len; i++) {
 		set(&t, eval(ctx, &list(args, i)));
 		if (t.type != TNumber)
-			break;
-		set(&list(&v, i-1), t);
+			continue;
+		set(&list(&v, j++), t);
 	}
 	delete(&t);
 	unmark(&v);
