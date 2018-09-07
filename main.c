@@ -95,12 +95,25 @@ Value eval_def(Value *ctx, Value *args)
 
 Value eval_lambda(Value *ctx, Value *args)
 {
-	int i;
 	Value v = nil;
+	int i;
 
 	set(&v, make(TLambda));
 	for (i = 1; i < args->list->len; i++)
 		set(&list(&v, i-1), list(args, i));
+	unmark(&v);
+	return v;
+}
+
+Value eval_eval(Value *ctx, Value *args)
+{
+	Value v = nil;
+	int i;
+
+	set(&v, make(TList));
+	for (i = 1; i < args->list->len; i++)
+		set(&list(&v, i-1), eval(ctx, &list(args, i)));
+	set(&v, eval(ctx, &v));
 	unmark(&v);
 	return v;
 }
@@ -161,7 +174,7 @@ int init(Value *ctx)
 	set(ctx, make(TList));
 
 	/* base system */
-	setstr(ctx, "eval", cfunc(eval));
+	setstr(ctx, "eval", cfunc(eval_eval));
 	setstr(ctx, "read", cfunc(eval_read));
 	setstr(ctx, "write", cfunc(eval_write));
 	setstr(ctx, "set", cfunc(eval_set));
