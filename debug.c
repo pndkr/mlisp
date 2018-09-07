@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include "lisp.h"
 
-void dump(Value *v)
+void dump(Value *v, int indent)
 {
 	switch (v->type) {
 	default:
 		printf("[type %d]", v->type); break;
 	case TNil:
-		printf("[nil]"); break;
+		printf("nil"); break;
 	case TFunc:
 		printf("[func %x]", (void*)v->func); break;
 	case TWeak:
@@ -23,13 +23,20 @@ void dump(Value *v)
 		putchar('\"');
 		break;
 	case TLambda: case TList: {
-			int i;
+			int i, j;
 
 			putchar('(');
 			for (i = 0; i < v->list->len; i++) {
-				dump(&list(v, i));
-				if (i + 1 < v->list->len)
-					putchar(' ');
+				dump(&list(v, i), indent+1);
+				if (i + 1 < v->list->len) {
+					if (islist(list(v, i))) { /* indentation formatting part */
+						putchar('\n');
+						for (j = 0; j <= indent; j++)
+							putchar(' ');
+					} else {
+						putchar(' ');
+					}
+				}
 			}
 			putchar(')');
 		}
@@ -41,8 +48,11 @@ Value eval_dump(Value *ctx, Value *args)
 {
 	Value v = nil;
 
-	set(&v, eval(ctx, &list(args, 1)));
-	dump(&v);
+	if (args->list->len > 1)
+		set(&v, eval(ctx, &list(args, 1)));
+	else
+		set(&v, *ctx);
+	dump(&v, 0);
 	unmark(&v);
 	putchar('\n');
 	return v;

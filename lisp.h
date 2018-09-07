@@ -77,7 +77,7 @@ void setstr(Value *map, char *key, Value v);
 /* debug.c */
 Value eval_dump(Value *ctx, Value *args);
 Value eval_info(Value *ctx, Value *args);
-void dump(Value*);
+void dump(Value*, int);
 
 /* expr.c */
 Value eval_len(Value *ctx, Value *args);
