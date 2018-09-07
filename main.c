@@ -166,9 +166,12 @@ int init(Value *ctx)
 	setstr(ctx, "info", cfunc(eval_info));
 	setstr(ctx, "dump", cfunc(eval_dump));
 
-	/* mapping system */
+	/* maps and lists system */
 	setstr(ctx, "map", cfunc(eval_map_literal));
 	setstr(ctx, "map-field", cfunc(eval_map_field));
+	setstr(ctx, "list", cfunc(eval_list_literal));
+	setstr(ctx, "list-field", cfunc(eval_list_field));
+
 
 	/* expression system */
 	setstr(ctx, "while", cfunc(eval_while));

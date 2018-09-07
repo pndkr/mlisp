@@ -62,9 +62,16 @@ void setstr(Value *map, char *key, Value v)
 }
 
 /* interfaces for map and list usage inside the language */
-Value eval_map_new(Value *ctx, Value *args)
+Value eval_map_literal(Value *ctx, Value *args)
 {
-	return make(TList);
+	Value m = nil;
+	int i;
+
+	set(&m, make(TList));
+	for (i = 1; i < args->list->len; i += 2)
+		set(mapget(&m, &list(args, i)), list(args, i+1));
+	unmark(&m);
+	return m;
 }
 
 Value eval_map_field(Value *ctx, Value *args)
@@ -79,14 +86,26 @@ Value eval_map_field(Value *ctx, Value *args)
 	return v;
 }
 
-Value eval_map_literal(Value *ctx, Value *args)
+Value eval_list_literal(Value *ctx, Value *args)
 {
-	Value m = nil;
+	Value l = nil;
 	int i;
 
-	set(&m, make(TList));
-	for (i = 1; i < args->list->len; i += 2)
-		set(mapget(&m, &list(args, i)), list(args, i+1));
-	unmark(&m);
-	return m;
+	set(&l, make(TList));
+	for (i = 1; i < args->list->len; i++)
+		set(&list(&l, i-1), list(args, i));
+	unmark(&l);
+	return l;
+}
+
+Value eval_list_field(Value *ctx, Value *args)
+{
+	Value l = nil, i = nil, v = make(TWeak);
+
+	set(&l, eval(ctx, &list(args, 1)));
+	set(&i, eval(ctx, &list(args, 2)));
+	v.weak = &list(&l, i->number);
+	delete(&l);
+	delete(&i);
+	return v;
 }
