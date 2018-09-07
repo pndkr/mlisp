@@ -186,6 +186,7 @@ int init(Value *ctx)
 	setstr(ctx, "sub", cfunc(eval_sub));
 	setstr(ctx, "mul", cfunc(eval_mul));
 	setstr(ctx, "div", cfunc(eval_div));
+	setstr(ctx, "mod", cfunc(eval_mod));
 	setstr(ctx, "gt", cfunc(eval_gt));
 	setstr(ctx, "lt", cfunc(eval_lt));
 	setstr(ctx, "ge", cfunc(eval_ge));

@@ -95,6 +95,21 @@ Value eval_len(Value *ctx, Value *args)
 	return l;
 }
 
+Value eval_mod(Value *ctx, Value *args)
+{
+	Value r = nil, a = nil;
+	int i;
+
+	set(&a, prepargs(ctx, args));
+	if (a.list->len > 0)
+		set(&r, list(&a, 0));
+	for (i = 1; i < a.list->len; i++)
+		r.number = (long int)r.number % (long int)list(&a, i).number;
+	delete(&a);
+	unmark(&r);
+	return r;
+}
+
 MATH_EXPR(add, +)
 MATH_EXPR(sub, -)
 MATH_EXPR(mul, *)

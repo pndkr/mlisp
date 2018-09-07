@@ -92,3 +92,4 @@ Value eval_lt(Value *ctx, Value *args);
 Value eval_ge(Value *ctx, Value *args);
 Value eval_le(Value *ctx, Value *args);
 Value eval_eq(Value *ctx, Value *args);
+Value eval_mod(Value *ctx, Value *args);
