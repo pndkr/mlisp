@@ -13,8 +13,14 @@ Value eval_read(Value *ctx, Value *args)
 	Value v = nil;
 	int ch, i;
 
-	while (isspace(ch = getchar()))
-		;
+	for (;;) {
+		while (isspace(ch = getchar()))
+			;
+		if (ch == ';') {
+			while ((ch = getchar()) != '\n')
+				;
+		} else break;
+	}
 	if (ch == '\"') {
 		set(&v, make(TString));
 		for (i = 0; (ch = getchar()) != '\"' && ch > 0; i++)
