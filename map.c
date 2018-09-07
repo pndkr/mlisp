@@ -61,7 +61,7 @@ void setstr(Value *map, char *key, Value v)
 	delete(&k);
 }
 
-/* interfaces for map usage inside the language */
+/* interfaces for map and list usage inside the language */
 Value eval_map_new(Value *ctx, Value *args)
 {
 	return make(TList);
