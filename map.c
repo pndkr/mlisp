@@ -104,7 +104,7 @@ Value eval_list_field(Value *ctx, Value *args)
 
 	set(&l, eval(ctx, &list(args, 1)));
 	set(&i, eval(ctx, &list(args, 2)));
-	v.weak = &list(&l, i->number);
+	v.weak = &list(&l, i.number);
 	delete(&l);
 	delete(&i);
 	return v;
