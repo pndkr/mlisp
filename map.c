@@ -69,7 +69,7 @@ Value eval_map_literal(Value *ctx, Value *args)
 
 	set(&m, make(TList));
 	for (i = 1; i < args->list->len; i += 2)
-		set(mapget(&m, &list(args, i)), list(args, i+1));
+		set(mapget(&m, &list(args, i)), eval(ctx, &list(args, i+1)));
 	unmark(&m);
 	return m;
 }
@@ -93,7 +93,7 @@ Value eval_list_literal(Value *ctx, Value *args)
 
 	set(&l, make(TList));
 	for (i = 1; i < args->list->len; i++)
-		set(&list(&l, i-1), list(args, i));
+		set(&list(&l, i-1), eval(ctx, &list(args, i)));
 	unmark(&l);
 	return l;
 }
