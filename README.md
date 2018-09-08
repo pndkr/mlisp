@@ -49,25 +49,25 @@ Beware, the behaviour for most of these functions is still unspecified if they a
 
 This sub-section describes the most basic functions in the language, without which the intepreter couldn't work correctly.
 
-- `(eval value)` → `value`
+#### `(eval value)` → `value`
 
 `eval` takes value of any type, tries to evaluate it, and returns the result.
 
-- `(read)` → `value`
+#### `(read)` → `value`
 
 `read` reads the standard input, parses it as _mlisp_ data, and returns it without evaluation.
 
-- `(write [value]...)` → `nil`
+#### `(write [value]...)` → `nil`
 
 `write` writes its arguments to the output, it doesn't dive recursively into indexed types. It returns `nil` after it finishes its task.
 
-- `(def symbol value)` → `nil`
+#### `(def symbol value)` → `nil`
 
 `def` creates new variable in the local scope with the name of the first argument, then evaluates its second argument and assigns the result to the variable.
 
 The function returns `nil`.
 
-- `(set value value)` → `nil`
+#### `(set value value)` → `nil`
 
 `set` evaluates it's arguments, and assigns the second one, to the first one. The first argument might be a variable name or a reference to a list or map field, for instance:
 
@@ -81,7 +81,7 @@ The difference between `set` and `def` is that `set` will look for an existing v
 
 The function returns `nil`.
 
-- `(fn ([symbol]...) [value]...)` → `lambda`
+#### `(fn ([symbol]...) [value]...)` → `lambda`
 
 `fn` creates and returns a new lambda, its first argument (the list) is assumed to be a list of symbols to be used as argument names, the next arguments are the lambda's body.
 
@@ -111,13 +111,13 @@ Since lambdas are first-class values, they can be passed as arguments to other l
 
 This section describes pars of the language that are helpful when some internal actions of the intepreter are to be figured out.
 
-- `(info)` → `nil`
+#### `(info)` → `nil`
 
 `info` prints information on number of _objects_ currently allocated in the memory, notice it doesn't include non-reference types.
 
 The function returns `nil`.
 
-- `(dump [value])` → `nil`
+#### `(dump [value])` → `nil`
 
 `dump` prints it's only argument as an s-expression, if it's not given any arguments, it will print the contents of a scope it is run in.
 
@@ -127,23 +127,23 @@ The function return `nil`.
 
 This section describes functions used to manage maps and lists.
 
-- `(list [value]...)` → `list`
+#### `(list [value]...)` → `list`
 
 `list` creates list of its evaluated arguments and returns it.
 
-- `(list-field index number)` → `value`
+#### `(list-field index number)` → `value`
 
 `list-field` returns value of `n`th element inside the given `index`.
 
 Notice that lambdas are indexes as well, so they can be manipulated with some help of this function.
 
-- `(map [number|string|symbol value]...)` → `list`
+#### `(map [number|string|symbol value]...)` → `list`
 
 The arguments for `map` have to come in key-value pairs, the function puts them inside a newly created map, with the values evaluated, and returns it.
 
 The returned value is a `list` understanable by `map` family of functions, but since it's a `list`, it can be managed by `list` functions as well.
 
-- `(map-field list number|string|symbol)` → `value`
+#### `(map-field list number|string|symbol)` → `value`
 
 `map-field` returns value of the element assigned to the given key (the second argument) in the given map (the first argument).
 
@@ -153,20 +153,20 @@ This section describes functions used for evaluating mathematical and comparemen
 
 For these functions only `nil` is treated and returned as a false value, all the other values, including empty strings or 0s are truths.
 
-- `(len object)` → `number`
+#### `(len object)` → `number`
 
 `len` returns length of given objects, if it's a string or a symbol, it returns the number of its characters, if it's a list or a lambda, it returns the number of values inside it.
 
-- `(while value [value]...)` → `value`
+#### `(while value [value]...)` → `value`
 
 `while` evaluates all its arguments as long as the first one is true,
 it returns the last value of the last expression in its body.
 
-- `(if value value [value])` → `value`
+#### `(if value value [value])` → `value`
 
 `if` evaluates its first argument and checks whether its true, if it is, it evaluates and returns its second argument, otherwise it returns the evaluated value of the fird argument. If the third argument isn't given, it is assumed to be `nil`.
 
-- `(add number [number]...)` → `number`
+#### `(add number [number]...)` → `number`
 
 `(sub number [number]...)` → `number`
 
@@ -178,31 +178,31 @@ it returns the last value of the last expression in its body.
 
 All of the functions above take their first argument, and then apply the appropriate mathematical operation to it -- using the next argument; if there are more arguments, the operation is repeated with the current result and the next arguments.
 
-- `(gt number [number]...)` → `number|nil`
+#### `(gt number [number]...)` → `number|nil`
 
 `gt` checks whether it's arguments are sorted in decreasing order.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
 
-- `(lt number [number]...)` → `number|nil`
+#### `(lt number [number]...)` → `number|nil`
 
 `lt` checks whether it's arguments are sorted in rising order.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
 
-- `(ge number [number]...)` → `number|nil`
+#### `(ge number [number]...)` → `number|nil`
 
 `ge` checks whether it's arguments are sorted in non-rising order.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
 
-- `(le number [number]...)` → `number|nil`
+#### `(le number [number]...)` → `number|nil`
 
 `le` checks whether it's arguments are sorted in non-decreasing order.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
 
-- `(eq number [number]...)` → `number|nil`
+#### `(eq number [number]...)` → `number|nil`
 
 `eq` checks whether all of its arguments are of the same numerical value.
 
