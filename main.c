@@ -83,14 +83,14 @@ Value eval_set(Value *ctx, Value *args)
 	set(&d, eval_weak(ctx, &list(args, 1)));
 	if (d.type == TWeak)
 		set(d.weak, eval(ctx, &list(args, 2)));
-	unmark(&d);
-	return d;
+	delete(&d);
+	return nil;
 }
 
 Value eval_def(Value *ctx, Value *args)
 {
 	set(mapget(ctx, &list(args, 1)), eval(ctx, &list(args, 2)));
-	return make(TNil);
+	return nil;
 }
 
 Value eval_lambda(Value *ctx, Value *args)
