@@ -26,6 +26,7 @@ void dump(Value *v, int indent)
 			int i, j;
 
 			putchar('(');
+			printf(v->type == TList? "list " : "fn ");
 			for (i = 0; i < v->list->len; i++) {
 				dump(&list(v, i), indent+1);
 				if (i + 1 < v->list->len) {
