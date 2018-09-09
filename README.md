@@ -168,7 +168,7 @@ it returns the last value of the last expression in its body.
 
 #### `(do [value]...)` → `value`
 
-`do` evaluets every each of its arguments once, and returns the value of the last one.
+`do` evaluates every each of its arguments once, and returns the value of the last one.
 
 This function is obviously not directly related with mathematical expressions, but it can be used to group expressions; that might be especially handy inside ifs.
 
