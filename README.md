@@ -199,3 +199,9 @@ If so, it returns the last value on the list, otherwise it returns `nil`.
 `eq` checks whether all of its arguments are of the same numerical value.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
+
+#### `(ne number [number]...)` → `number|nil`
+
+`ne` checks whether any _neighbouring_ pair of its arguments is of different value.
+
+If so, it returns the last value on the list, otherwise it returns `nil`.
