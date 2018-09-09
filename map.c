@@ -49,14 +49,14 @@ Value *mapget(Value *map, Value *key)
 	return &list(group, i+1); /* new undefined nil value */
 }
 
-void setstr(Value *map, char *key, Value v)
+void setvar(Value *map, char *key, Value v)
 {
 	int len = strlen(key);
 	Value k = nil;
 
-	set(&k, make(TString));
+	set(&k, make(TSymbol));
 	string(&k, len-1);
-	strncpy(k.string->d, key, len);
+	strncpy(k.symbol->d, key, len);
 	set(mapget(map, &k), v);
 	delete(&k);
 }

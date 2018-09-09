@@ -72,7 +72,7 @@ Value eval_list_literal(Value *ctx, Value *args);
 Value eval_list_field(Value *ctx, Value *args);
 Value *mapget(Value *map, Value *key);
 int cmp(Value *a, Value *b);
-void setstr(Value *map, char *key, Value v);
+void setvar(Value *map, char *key, Value v);
 
 /* debug.c */
 Value eval_dump(Value *ctx, Value *args);

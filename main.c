@@ -174,37 +174,37 @@ int init(Value *ctx)
 	set(ctx, make(TList));
 
 	/* base system */
-	setstr(ctx, "eval", cfunc(eval_eval));
-	setstr(ctx, "read", cfunc(eval_read));
-	setstr(ctx, "write", cfunc(eval_write));
-	setstr(ctx, "set", cfunc(eval_set));
-	setstr(ctx, "def", cfunc(eval_def));
-	setstr(ctx, "fn", cfunc(eval_lambda));
+	setvar(ctx, "eval", cfunc(eval_eval));
+	setvar(ctx, "read", cfunc(eval_read));
+	setvar(ctx, "write", cfunc(eval_write));
+	setvar(ctx, "set", cfunc(eval_set));
+	setvar(ctx, "def", cfunc(eval_def));
+	setvar(ctx, "fn", cfunc(eval_lambda));
 
 	/* debugging system */
-	setstr(ctx, "info", cfunc(eval_info));
-	setstr(ctx, "dump", cfunc(eval_dump));
+	setvar(ctx, "info", cfunc(eval_info));
+	setvar(ctx, "dump", cfunc(eval_dump));
 
 	/* maps and lists system */
-	setstr(ctx, "map", cfunc(eval_map_literal));
-	setstr(ctx, "map-field", cfunc(eval_map_field));
-	setstr(ctx, "list", cfunc(eval_list_literal));
-	setstr(ctx, "list-field", cfunc(eval_list_field));
+	setvar(ctx, "map", cfunc(eval_map_literal));
+	setvar(ctx, "map-field", cfunc(eval_map_field));
+	setvar(ctx, "list", cfunc(eval_list_literal));
+	setvar(ctx, "list-field", cfunc(eval_list_field));
 
 	/* expression system */
-	setstr(ctx, "len", cfunc(eval_len));
-	setstr(ctx, "while", cfunc(eval_while));
-	setstr(ctx, "if", cfunc(eval_if));
-	setstr(ctx, "add", cfunc(eval_add));
-	setstr(ctx, "sub", cfunc(eval_sub));
-	setstr(ctx, "mul", cfunc(eval_mul));
-	setstr(ctx, "div", cfunc(eval_div));
-	setstr(ctx, "mod", cfunc(eval_mod));
-	setstr(ctx, "gt", cfunc(eval_gt));
-	setstr(ctx, "lt", cfunc(eval_lt));
-	setstr(ctx, "ge", cfunc(eval_ge));
-	setstr(ctx, "le", cfunc(eval_le));
-	setstr(ctx, "eq", cfunc(eval_eq));
+	setvar(ctx, "len", cfunc(eval_len));
+	setvar(ctx, "while", cfunc(eval_while));
+	setvar(ctx, "if", cfunc(eval_if));
+	setvar(ctx, "add", cfunc(eval_add));
+	setvar(ctx, "sub", cfunc(eval_sub));
+	setvar(ctx, "mul", cfunc(eval_mul));
+	setvar(ctx, "div", cfunc(eval_div));
+	setvar(ctx, "mod", cfunc(eval_mod));
+	setvar(ctx, "gt", cfunc(eval_gt));
+	setvar(ctx, "lt", cfunc(eval_lt));
+	setvar(ctx, "ge", cfunc(eval_ge));
+	setvar(ctx, "le", cfunc(eval_le));
+	setvar(ctx, "eq", cfunc(eval_eq));
 }
 
 int main(int argc)
