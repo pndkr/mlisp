@@ -194,6 +194,7 @@ int init(Value *ctx)
 	/* expression system */
 	setvar(ctx, "len", cfunc(eval_len));
 	setvar(ctx, "while", cfunc(eval_while));
+	setvar(ctx, "do", cfunc(eval_do));
 	setvar(ctx, "if", cfunc(eval_if));
 	setvar(ctx, "add", cfunc(eval_add));
 	setvar(ctx, "sub", cfunc(eval_sub));

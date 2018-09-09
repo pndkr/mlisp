@@ -81,6 +81,7 @@ void dump(Value*, int);
 
 /* expr.c */
 Value eval_while(Value *ctx, Value *args);
+Value eval_do(Value *ctx, Value *args);
 Value eval_if(Value *ctx, Value *args);
 Value eval_len(Value *ctx, Value *args);
 Value eval_add(Value *ctx, Value *args);

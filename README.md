@@ -166,6 +166,12 @@ it returns the last value of the last expression in its body.
 
 `if` evaluates its first argument and checks whether its true, if it is, it evaluates and returns its second argument, otherwise it returns the evaluated value of the fird argument. If the third argument isn't given, it is assumed to be `nil`.
 
+#### `(do [value]...)` → `value`
+
+`do` evaluets every each of its arguments once, and returns the value of the last one.
+
+This function is obviously not directly related with mathematical expressions, but it can be used to group expressions; that might be especially handy inside ifs.
+
 #### `(add|sub|mul|div|mod number [number]...)` → `number`
 
 All of the functions above take their first argument, and then apply the appropriate mathematical operation to it -- using the next argument; if there are more arguments, the operation is repeated with the current result and the next arguments.

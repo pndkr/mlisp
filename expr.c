@@ -54,6 +54,17 @@ Value prepargs(Value *ctx, Value *args)
 	return v;
 }
 
+Value eval_do(Value *ctx, Value *args)
+{
+	Value r = nil;
+	int i;
+
+	for (i = 1; i < args->list->len; i++)
+		set(&r, eval(ctx, &list(args, i)));
+	unmark(&r);
+	return r;
+}
+
 Value eval_if(Value *ctx, Value *args)
 {
 	Value r = nil;
