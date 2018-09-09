@@ -166,15 +166,7 @@ it returns the last value of the last expression in its body.
 
 `if` evaluates its first argument and checks whether its true, if it is, it evaluates and returns its second argument, otherwise it returns the evaluated value of the fird argument. If the third argument isn't given, it is assumed to be `nil`.
 
-#### `(add number [number]...)` → `number`
-
-`(sub number [number]...)` → `number`
-
-`(mul number [number]...)` → `number`
-
-`(div number [number]...)` → `number`
-
-`(mod number [number]...)` → `number`
+#### `(add|sub|mul|div|mod number [number]...)` → `number`
 
 All of the functions above take their first argument, and then apply the appropriate mathematical operation to it -- using the next argument; if there are more arguments, the operation is repeated with the current result and the next arguments.
 
