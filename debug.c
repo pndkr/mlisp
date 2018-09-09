@@ -44,7 +44,7 @@ void dump(Value *v, int indent)
 	}
 }
 
-Value eval_dump(Value *ctx, Value *args)
+Value eval_write(Value *ctx, Value *args)
 {
 	Value v = nil;
 

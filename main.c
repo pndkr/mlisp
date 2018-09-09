@@ -48,7 +48,7 @@ Value eval_read(Value *ctx, Value *args)
 	return v;
 }
 
-Value eval_write(Value *ctx, Value *args)
+Value eval_print(Value *ctx, Value *args)
 {
 	Value v = nil;
 	int i;
@@ -176,14 +176,14 @@ int init(Value *ctx)
 	/* base system */
 	setvar(ctx, "eval", cfunc(eval_eval));
 	setvar(ctx, "read", cfunc(eval_read));
-	setvar(ctx, "write", cfunc(eval_write));
+	setvar(ctx, "print", cfunc(eval_print));
 	setvar(ctx, "set", cfunc(eval_set));
 	setvar(ctx, "def", cfunc(eval_def));
 	setvar(ctx, "fn", cfunc(eval_lambda));
 
 	/* debugging system */
 	setvar(ctx, "info", cfunc(eval_info));
-	setvar(ctx, "dump", cfunc(eval_dump));
+	setvar(ctx, "write", cfunc(eval_write));
 
 	/* maps and lists system */
 	setvar(ctx, "map", cfunc(eval_map_literal));

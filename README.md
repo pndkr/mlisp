@@ -57,9 +57,9 @@ This sub-section describes the most basic functions in the language, without whi
 
 `read` reads the standard input, parses it as _mlisp_ data, and returns it without evaluation.
 
-#### `(write [value]...)` → `nil`
+#### `(print [value]...)` → `nil`
 
-`write` writes its arguments to the output, it doesn't dive recursively into indexed types. It returns `nil` after it finishes its task.
+`print` prints its arguments to the output, it doesn't dive recursively into indexed types. It returns `nil` after it finishes its task.
 
 #### `(def symbol value)` → `nil`
 
@@ -72,10 +72,10 @@ The function returns `nil`.
 `set` evaluates it's arguments, and assigns the second one, to the first one. The first argument might be a variable name or a reference to a list or map field, for instance:
 
 	(def l (list "a" "b" "c" "d")) ; creates a new list
-	(write (list-field l 2))       ; prints 'c'
+	(print (list-field l 2))       ; prints 'c'
 
 	(set (list-field l 2) "g")     ; sets the "c" inside the list to "g"
-	(write (list-field l 2))       ; prints 'g'
+	(print (list-field l 2))       ; prints 'g'
 
 The difference between `set` and `def` is that `set` will look for an existing value rather than create one, if it doesn't find it, it will look for it in the global scope. But since the interpeter treats every non-declared variable as it were containing `nil`, the `set` function -- given a symbol as its first argument -- can be actually used to declare global variables from inside functions.
 
@@ -92,7 +92,7 @@ The idiom to declare and call functions in _mlisp_ is:
 	(def twice (fn (n)
 	  (mul 2 n)))      ; declares a function 'twice'
 
-	(write (twice 9))  ; prints '18'
+	(print (twice 9))  ; prints '18'
 
 Since lambdas are first-class values, they can be passed as arguments to other lambdas or returned by them. The user can use this property to create solutions like the following one:
 
@@ -105,7 +105,7 @@ Since lambdas are first-class values, they can be passed as arguments to other l
 	(def squared (fn (n)
 	  (double-op mul n)))
 
-	(write (twice 4) (squared 4)) ; prints '8 16'
+	(print (twice 4) (squared 4)) ; prints '8 16'
 
 ### Debugging system
 
@@ -117,9 +117,9 @@ This section describes pars of the language that are helpful when some internal 
 
 The function returns `nil`.
 
-#### `(dump [value])` → `nil`
+#### `(write [value])` → `nil`
 
-`dump` prints it's only argument as an s-expression, if it's not given any arguments, it will print the contents of a scope it is run in.
+`write` prints it's only argument as an s-expression, if it's not given any arguments, it will print the contents of a scope it is run in.
 
 The function return `nil`.
 
