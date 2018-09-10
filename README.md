@@ -43,7 +43,7 @@ This section uses following symbolics:
  `[argument]`               | Optional         | `argument` is optional
  `[argument argument]`      | Group            | both arguments are optional, but have to be passed together
  `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
- `A pipe B` **\***          | One of           | the argument has to be of type or name `A` or `B`
+ `A or B` **\***          | One of           | the argument has to be of type or name `A` or `B`
 
 **\*** `A|B`, but some Markdown parsers misinterpret even escaped pipes inside tables.
 
