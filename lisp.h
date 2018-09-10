@@ -5,7 +5,7 @@
 #define string(s, n) vector(char, (s)->string, (n))
 
 #define isobject(v) ((v).type >= TList)
-#define islist(v) ((v).type & (TList|TLambda))
+#define islist(v) ((v).type == TList)
 
 #define cfunc(f) ((Value){.type = TFunc, .func = f})
 
@@ -15,9 +15,8 @@ enum Type {
 	TWeak   = 1 << 1,
 	TNumber = 1 << 2,
 	TList   = 1 << 3,
-	TLambda = 1 << 4,
-	TSymbol = 1 << 5,
-	TString = 1 << 6,
+	TSymbol = 1 << 4,
+	TString = 1 << 5,
 	/* the 7 should be the last type, there's no place for more (8-bit)  */
 	/* i would like to remember the last type is reserved for macros     */
 
@@ -42,10 +41,9 @@ typedef struct Value {
 		struct Value (*func)(struct Value *ctx, struct Value*);
 		struct Value *weak;
 		Vector *list;
-		Vector *lambda;
 		Vector *symbol;
 		Vector *string;
-		Object *object; /* actually generic for the previous four */
+		Object *object; /* actually generic for the previous three */
 	};
 } Value;
 

@@ -22,7 +22,7 @@ void dump(Value *v, int indent)
 		fwrite(v->string->d, sizeof(char), v->string->len, stdout);
 		putchar('\"');
 		break;
-	case TLambda: case TList: {
+	case TList: {
 			int i, j;
 
 			putchar('(');

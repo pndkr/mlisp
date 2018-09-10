@@ -98,7 +98,7 @@ Value eval_lambda(Value *ctx, Value *args)
 	Value v = nil;
 	int i;
 
-	set(&v, make(TLambda));
+	set(&v, make(TList));
 	for (i = 1; i < args->list->len; i++)
 		set(&list(&v, i-1), list(args, i));
 	unmark(&v);
@@ -110,9 +110,8 @@ Value eval_eval(Value *ctx, Value *args)
 	Value v = nil;
 	int i;
 
-	set(&v, make(TList));
-	for (i = 1; i < args->list->len; i++)
-		set(&list(&v, i-1), eval(ctx, &list(args, i)));
+	if (args->list->len > 1)
+		set(&v, eval(ctx, &list(args, 1)));
 	set(&v, eval(ctx, &v));
 	unmark(&v);
 	return v;
@@ -136,7 +135,7 @@ Value eval_weak(Value *ctx, Value *args)
 	set(&v, eval(ctx, &list(args, 0)));
 	if (v.type == TFunc)
 		set(&v, v.func(ctx, args));
-	else if (v.type == TLambda)
+	else if (v.type == TList)
 		set(&v, run_lambda(ctx, &v, args));
 	unmark(&v);
 	return v;
@@ -160,9 +159,10 @@ Value run_lambda(Value *ctx, Value *lbd, Value *args)
 	Value v = nil;
 	int i;
 
+	//dump(lbd, 0); dump(args, 0); putchar('\n');
 	for (i = 0; i < vars->list->len; i++)
 		set(mapget(&lclctx, &list(vars, i)), eval(ctx, &list(args, i+1)));
-	for (i = 1; i < lbd->lambda->len; i++)
+	for (i = 1; i < lbd->list->len; i++)
 		set(&v, eval(&lclctx, &list(lbd, i)));
 	delete(&lclctx);
 	unmark(&v);
