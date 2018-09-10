@@ -10,22 +10,19 @@
  Symbol                | yes            | no
  String                | yes            | no
  List                  | yes            | yes
- Lambda                | yes            | yes
  Weak reference **\*** | no             | no
 
 **\*** weak references are only used internally by the interpreter
 
 The _mlisp_ interpreter doesn't manage every object through reference count, some values are only copied, and _only_ the reference types are cared by the garbage collector. This is intended to save memory, since non-reference types are usually of similar size as pointers.
 
-Index types (lists and lambdas) are objects that consist of other objects embedded inside them. They can be manipulated through list access operators.
+Lists are objects that consist of other objects embedded inside them. They can be manipulated through list access operators.
 
 Based on all the above, types can be put in the following hierarchy:
 
 - `value`
 	- `object` (reference types)
-		- `index`
-			- `list`
-			- `lambda`
+		- `list`
 		- `symbol`
 		- `string`
 	- `c function`
@@ -37,11 +34,18 @@ The terms above will be used in next section.
 
 ## Built-in functions
 
-This section uses symbol `...` to note that an argument (or a group of arguments) that it follows can be reapeated, and `[argument]` to note that an argument is optional.
+This section uses following symbolics:
 
-If a few arguments are grouped inside `[` and `]` symbols, it means that they are optional, but they have to come in groups.
+ Example                    | Name             | Meaning
+----------------------------|------------------|---------
+ `(f)`  → `type`            | Returns          | function `f` returns value of type `type`
+ `argument...`              | Repeatable       | `argument` may be repeated
+ `[argument]`               | Optional         | `argument` is optional
+ `[argument argument]`      | Group            | both arguments are optional, but have to be passed together
+ `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
+ `A pipe B` **\***          | One of           | the argument has to be of type or name `A` or `B`
 
-Arguments that are described as `type|type` are assumed to be of one of these types.
+**\*** `A|B`, but some Markdown parsers misinterpret even escaped pipes inside tables.
 
 Beware, the behaviour for most of these functions is still unspecified if they are given wrong type of arguments, however, at worst it only causes forever loops and null-pointer dereference, otherwise the functions just return wrong results.
 
@@ -81,9 +85,9 @@ The difference between `set` and `def` is that `set` will look for an existing v
 
 The function returns `nil`.
 
-#### `(fn ([symbol]...) [value]...)` → `lambda`
+#### `(fn ([symbol]...) [value]...)` → `list`
 
-`fn` creates and returns a new lambda, its first argument (the list) is assumed to be a list of symbols to be used as argument names, the next arguments are the lambda's body.
+`fn` creates and returns a new lambda, its first argument is assumed to be a list of symbols to be used as argument names, the next arguments are the lambda's body.
 
 Every lambda, if called, returns the value of its last expression.
 
@@ -94,7 +98,7 @@ The idiom to declare and call functions in _mlisp_ is:
 
 	(print (twice 9))  ; prints '18'
 
-Since lambdas are first-class values, they can be passed as arguments to other lambdas or returned by them. The user can use this property to create solutions like the following one:
+Since lambdas are first-class values, and actually just lists, they can be passed as arguments to other lambdas or returned by them. The user can use this property to create solutions like the following one:
 
 	(def double-op (fn (op n)
 	  (op n n)))
@@ -135,7 +139,7 @@ This section describes functions used to manage maps and lists.
 
 `list-field` returns value of `n`th element inside the given `index`.
 
-Notice that lambdas are indexes as well, so they can be manipulated with some help of this function.
+Remember that lambdas are just lists, so they can be manipulated with some help of this function.
 
 #### `(map [number|string|symbol value]...)` → `list`
 
@@ -155,7 +159,7 @@ For these functions only `nil` is treated and returned as a false value, all the
 
 #### `(len object)` → `number`
 
-`len` returns length of given objects, if it's a string or a symbol, it returns the number of its characters, if it's a list or a lambda, it returns the number of values inside it.
+`len` returns length of given objects, if it's a string or a symbol, it returns the number of its characters, if it's a list, it returns the number of values inside it.
 
 #### `(while value [value]...)` → `value`
 
