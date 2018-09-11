@@ -215,3 +215,15 @@ If so, it returns the last value on the list, otherwise it returns `nil`.
 `ne` checks whether any _neighbouring_ pair of its arguments is of different value.
 
 If so, it returns the last value on the list, otherwise it returns `nil`.
+
+#### `(or value [value]...)` → `value|nil`
+
+`or` checks if any of arguments passed to it are of type other than `nil`, if so, it returns the first non-nil value met, otherwise it returns `nil`.
+
+#### `(and value [value]...)` → `value|nil`
+
+`and` checks if any of arguments passed to it are of type `nil`, if so, it returns `nil`, otherwise it returns the last value passed to it.
+
+#### `(not value)` → `number|nil`
+
+`not` checks if the only argument passed to it is `nil`, if so, it returns a number, otherwise it returns `nil`.

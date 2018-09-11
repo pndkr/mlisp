@@ -38,6 +38,21 @@
 		return r; \
 	}
 
+#define BOOL_EXPR(name, op) \
+	Value eval_ ## name(Value *ctx, Value *args) \
+	{ \
+		Value v = nil; \
+		int i; \
+		\
+		for (i = 1; i < args->list->len; i++) { \
+			set(&v, eval(ctx, &list(args, i))); \
+			if (v.type op TNil) \
+				break; \
+		} \
+		unmark(&v); \
+		return v; \
+	}
+
 Value prepargs(Value *ctx, Value *args)
 {
 	Value t = nil, v = make(TList);
@@ -121,6 +136,16 @@ Value eval_mod(Value *ctx, Value *args)
 	return r;
 }
 
+Value eval_not(Value *ctx, Value *args)
+{
+	Value v = nil;
+
+	set(&v, eval(ctx, &list(args, 1)));
+	set(&v, make(v.type == TNil? TNumber : TNil));
+	unmark(&v);
+	return v;
+}
+
 MATH_EXPR(add, +)
 MATH_EXPR(sub, -)
 MATH_EXPR(mul, *)
@@ -129,5 +154,7 @@ CMPR_EXPR(gt, >)
 CMPR_EXPR(lt, <)
 CMPR_EXPR(ge, >=)
 CMPR_EXPR(le, <=)
-CMPR_EXPR(eq, ==)
 CMPR_EXPR(ne, !=)
+CMPR_EXPR(eq, ==)
+BOOL_EXPR(or, !=)
+BOOL_EXPR(and, ==)

@@ -207,6 +207,9 @@ int init(Value *ctx)
 	setvar(ctx, "le", cfunc(eval_le));
 	setvar(ctx, "eq", cfunc(eval_eq));
 	setvar(ctx, "ne", cfunc(eval_ne));
+	setvar(ctx, "or", cfunc(eval_or));
+	setvar(ctx, "and", cfunc(eval_and));
+	setvar(ctx, "not", cfunc(eval_not));
 }
 
 int main(int argc)
