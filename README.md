@@ -16,9 +16,7 @@
 
 The _mlisp_ interpreter doesn't manage every object through reference count, some values are only copied, and _only_ the reference types are cared by the garbage collector. This is intended to save memory, since non-reference types are usually of similar size as pointers.
 
-Lists are objects that consist of other objects embedded inside them. They can be manipulated through list access operators.
-
-Based on all the above, types can be put in the following hierarchy:
+Based on everything above, types can be put in the following hierarchy:
 
 - `value`
 	- `object` (reference types)
@@ -27,14 +25,14 @@ Based on all the above, types can be put in the following hierarchy:
 		- `string`
 	- `c function`
 	- `number`
-	- `nil`
 	- `weak` (weak reference)
+	- `nil`
 
 The terms above will be used in next section.
 
 ## Built-in functions
 
-This section uses following symbolics:
+This section describes behaviour of built-in functions. The following symbolics will be used here:
 
  Example                    | Name             | Meaning
 ----------------------------|------------------|---------
@@ -43,7 +41,7 @@ This section uses following symbolics:
  `[argument]`               | Optional         | `argument` is optional
  `[argument argument]`      | Group            | both arguments are optional, but have to be passed together
  `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
- `A or B` **\***          | One of           | the argument has to be of type or name `A` or `B`
+ `A or B` **\***            | One of           | the argument has to be of type or name `A` or `B`
 
 **\*** `A|B`, but some Markdown parsers misinterpret even escaped pipes inside tables.
 
