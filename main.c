@@ -159,7 +159,6 @@ Value run_lambda(Value *ctx, Value *lbd, Value *args)
 	Value v = nil;
 	int i;
 
-	//dump(lbd, 0); dump(args, 0); putchar('\n');
 	for (i = 0; i < vars->list->len; i++)
 		set(mapget(&lclctx, &list(vars, i)), eval(ctx, &list(args, i+1)));
 	for (i = 1; i < lbd->list->len; i++)
