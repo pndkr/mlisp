@@ -105,6 +105,15 @@ Value eval_lambda(Value *ctx, Value *args)
 	return v;
 }
 
+Value eval_quote(Value *ctx, Value *args)
+{
+	Value v = nil;
+
+	set(&v, list(args, 1));
+	unmark(&v);
+	return v;
+}
+
 Value eval_eval(Value *ctx, Value *args)
 {
 	Value v = nil;
@@ -176,6 +185,7 @@ int init(Value *ctx)
 	setvar(ctx, "eval", cfunc(eval_eval));
 	setvar(ctx, "read", cfunc(eval_read));
 	setvar(ctx, "print", cfunc(eval_print));
+	setvar(ctx, "quote", cfunc(eval_quote));
 	setvar(ctx, "set", cfunc(eval_set));
 	setvar(ctx, "def", cfunc(eval_def));
 	setvar(ctx, "fn", cfunc(eval_lambda));

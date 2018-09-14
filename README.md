@@ -43,7 +43,7 @@ This section describes behaviour of built-in functions. The following symbolics 
  `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
  `A or B` **\***            | One of           | the argument has to be of type or name `A` or `B`
 
-**\*** `A|B`, but some Markdown parsers misinterpret even escaped pipes inside tables.
+**\*** `A|B`, but some Markdown parsers misinterpret escaped pipes inside tables.
 
 Beware, the behaviour for most of these functions is still unspecified if they are given wrong type of arguments, however, at worst it only causes forever loops and null-pointer dereference, otherwise the functions just return wrong results.
 
@@ -62,6 +62,10 @@ This sub-section describes the most basic functions in the language, without whi
 #### `(print [value]...)` → `nil`
 
 `print` prints its arguments to the output, it doesn't dive recursively into indexed types. It returns `nil` after it finishes its task.
+
+#### `(quote value)` → `value`
+
+`quote` returns its only argument as a literal, unevaluated token.
 
 #### `(def symbol value)` → `nil`
 
