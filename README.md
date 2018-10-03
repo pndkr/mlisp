@@ -32,7 +32,7 @@ The terms above will be used in next section.
 
 ## Built-in functions
 
-This section describes behaviour of built-in functions. The following symbolics will be used here:
+This section describes behaviour of built-in functions. The following conventions will be used here:
 
  Example                    | Name             | Meaning
 ----------------------------|------------------|---------
@@ -41,9 +41,7 @@ This section describes behaviour of built-in functions. The following symbolics 
  `[argument]`               | Optional         | `argument` is optional
  `[argument argument]`      | Group            | both arguments are optional, but have to be passed together
  `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
- `A or B` **\***            | One of           | the argument has to be of type or name `A` or `B`
-
-**\*** `A|B`, but some Markdown parsers misinterpret escaped pipes inside tables.
+ <code>A&#124;B</code>      | One of           | the argument has to be of type or name `A` or `B`
 
 Beware, the behaviour for most of these functions is still unspecified if they are given wrong type of arguments, however, at worst it only causes forever loops and null-pointer dereference, otherwise the functions just return wrong results.
 
