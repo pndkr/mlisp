@@ -5,6 +5,7 @@
 #define string(s, n) vector(char, (s)->string, (n))
 
 #define isobject(v) ((v).type >= TList)
+#define isother(v) ((v).type == TOther)
 #define islist(v) ((v).type == TList)
 
 #define cfunc(f) ((Value){.type = TFunc, .func = f})
@@ -17,11 +18,7 @@ enum Type {
 	TList   = 1 << 3,
 	TSymbol = 1 << 4,
 	TString = 1 << 5,
-	/* the 7 should be the last type, there's no place for more (8-bit)  */
-	/* i would like to remember the last type is reserved for macros     */
-
-	/* however, arbitrary C data value would be as nice,                 */
-	/* and so would be error values                                      */
+	TOther  = 1 << 6,
 };
 
 typedef struct Vector {
@@ -29,8 +26,16 @@ typedef struct Vector {
 	int cap, len;
 } Vector;
 
+typedef struct Other {
+	void *d;
+	void (*delete)(void *);
+} Other;
+
 typedef struct Object {
-	Vector v;
+	union {
+		Other o;
+		Vector v;
+	};
 	int refc;
 } Object;
 
@@ -38,12 +43,13 @@ typedef struct Value {
 	enum Type type;
 	union {
 		double number;
-		struct Value (*func)(struct Value *ctx, struct Value*);
+		struct Value (*func)(struct Value *ctx, struct Value *);
 		struct Value *weak;
-		Vector *list;
+		Other  *other;
 		Vector *symbol;
 		Vector *string;
-		Object *object; /* actually generic for the previous three */
+		Vector *list;   /* list type, but also generic for the previous two */
+		Object *object; /* generic type for the previous four */
 	};
 } Value;
 
@@ -57,6 +63,7 @@ void *access(Vector *v, int n, int sz);
 /* mem.c */
 Object *alloc(void);
 Value make(enum Type type);
+Value pack(void *d, void (*delete)(void*));
 void mark(Value *v);
 void unmark(Value *v);
 void delete(Value *v);

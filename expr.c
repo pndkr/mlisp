@@ -115,7 +115,7 @@ Value eval_len(Value *ctx, Value *args)
 	Value v = nil, l = make(TNumber);
 
 	set(&v, eval(ctx, &list(args, 1)));
-	if (isobject(v))
+	if (isobject(v) && !isother(v))
 		l.number = v.list->len;
 	delete(&v);
 	return l;

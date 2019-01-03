@@ -21,6 +21,15 @@ Value make(enum Type type)
 	return v;
 }
 
+Value pack(void *d, void (*delete)(void*))
+{
+	Value v = make(TOther);
+
+	v.other->d = d;
+	v.other->delete = delete;
+	return v;
+}
+
 void mark(Value *v)
 {
 	if (isobject(*v))
@@ -35,15 +44,19 @@ void unmark(Value *v)
 
 void check(Value *v)
 {
-
 	if (isobject(*v) && v->object->refc <= 0) {
-		if (islist(*v)) {
-			int i;
+		if (isother(*v)) {
+			if (v->other->delete)
+				v->other->delete(v->other->d);
+		} else {
+			if (islist(*v)) {
+				int i;
 
-			for (i = 0; i < v->list->len; i++)
-				delete(&vector(Value, v->list, i));
+				for (i = 0; i < v->list->len; i++)
+					delete(&vector(Value, v->list, i));
+			}
+			free(v->object->v.d);
 		}
-		free(v->object->v.d);
 		free(v->object);
 		v->type = TNil;
 		--_objects;
