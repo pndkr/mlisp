@@ -43,7 +43,7 @@ This section describes behaviour of built-in functions. The following convention
  `[argument argument]...`   | Repeatable group | like above, but the arguments can be repeated
  <code>A&#124;B</code>      | One of           | the argument has to be of type or name `A` or `B`
 
-Beware, the behaviour for most of these functions is still unspecified if they are given wrong type of arguments, however, at worst it only causes forever loops and null-pointer dereference, otherwise the functions just return wrong results.
+Beware, the behaviour for most of these functions is still unspecified if they are given wrong type of arguments, however, at worst it only causes forever loops and null-pointer dereference, otherwise the functions just return wrong results without any other side effects.
 
 ### Base system
 
@@ -94,7 +94,7 @@ Every lambda, if called, returns the value of its last expression.
 The idiom to declare and call functions in _mlisp_ is:
 
 	(def twice (fn (n)
-	  (mul 2 n)))      ; declares a function 'twice'
+	  (mul 2 n)))      ; declares function 'twice'
 
 	(print (twice 9))  ; prints '18'
 
@@ -125,7 +125,7 @@ The function returns `nil`.
 
 `write` prints it's only argument as an s-expression, if it's not given any arguments, it will print the contents of a scope it is run in.
 
-The function return `nil`.
+The function returns `nil`.
 
 ### Map and list manipulation system
 
@@ -168,7 +168,7 @@ it returns the last value of the last expression in its body.
 
 #### `(if value value [value])` → `value`
 
-`if` evaluates its first argument and checks whether its true, if it is, it evaluates and returns its second argument, otherwise it returns the evaluated value of the fird argument. If the third argument isn't given, it is assumed to be `nil`.
+`if` evaluates its first argument and checks whether its true, if it is, it evaluates and returns its second argument, otherwise it returns the evaluated value of the third argument. If the third argument isn't given, it is assumed to be `nil`.
 
 #### `(do [value]...)` → `value`
 
